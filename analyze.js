@@ -1,8 +1,8 @@
 function setdefaultoptions() {
-    // var defaults = ["badAdverbCheck", "sentenceLengthCheck", "repeatWordCheck"];
-    // for (var i = 0; i < defaults.length; i++) {
-    //   document.getElementById(defaults[i]).checked = true;
-    // }
+    var defaults = ["badAdverbCheck", "sentenceLengthCheck", "repeatWordCheck"];
+    for (var i = 0; i < defaults.length; i++) {
+      document.getElementById(defaults[i]).checked = true;
+    }
 }
 
 function parseWords(allWords) {
