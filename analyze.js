@@ -149,8 +149,6 @@ function checkSentenceLength(sentences) {
     for (var i = 1; i < sentences.length - 1; i++) {
        if (sentences[i].words.length === sentences[i-1].words.length && sentences[i].words.length === sentences[i+1].words.length
        && sentences[i].words.length > 2) {
-          console.log("Sentence length: " + sentences[i].words.length);
-          console.log(sentences[i]);
           sentences[i].marked = true;
           sentences[i].markedVal = 101;
           sentences[i-1].marked = true;
@@ -213,7 +211,7 @@ function findAdverbs(words, sentences) {
            headers: {"X-Mashape-Key": "8HXj2NNzKGmshlvmsSxIoHzgJ4NKp12ajddjsnyPge7H9FIMc8", "X-Mashape-Host": "wordsapiv1.p.mashape.com"},
            datatype: "json",
            success : function(result) {
-               for (var j = 0; j < result.definitions.length; j++) {
+              for (var j = 0; j < result.definitions.length; j++) {
                  if (result.definitions[j].partOfSpeech === "adverb") {
                     lyWords[currentLyIndex].marked = true;
                     if (lyWords[currentLyIndex].markedVal == 102 || lyWords[currentLyIndex].markedVal == 104) {
