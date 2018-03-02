@@ -8,75 +8,76 @@
   <title>Style Helper: Creative Writing Style Analysis</title>
 </head>
 <body onload="setdefaultoptions()">
-  <div class="heading">
-    <h1>The Style Helper</h1>
-    <h3>A dream come true for authors and editors alike.</h3>
-  </div>
+  <div id="app">
+    <div class="heading">
+      <h1>{{ title }}</h1>
+      <h3>{{ blurb }}</h3>
+    </div>
 
-  <div id="demoTexts">
-    <p>Test it out with these demo chapters: </p>
-    <button type="button" class="btn btn-secondary demoButton" id="demoEragon"><u>Eragon</u> by Christopher Paolini</button>
-    <button type="button" class="btn btn-secondary demoButton" id="demoUncovered"><u>Uncovered</u> by Berkeley Andrus</button>
-  </div>
+    <div id="demoTexts">
+      <p>Test it out with these demo chapters: </p>
+      <button v-on:click="addEragon" type="button" class="btn btn-secondary demoButton" id="demoEragon"><u>Eragon</u> by Christopher Paolini</button>
+      <button v-on:click="addUncovered" type="button" class="btn btn-secondary demoButton" id="demoUncovered"><u>Uncovered</u> by Berkeley Andrus</button>
+    </div>
 
-  <div class="options">
-    <p>Select the common writing style issues you would like to look for:</p>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm">
-          <p>Trouble words:</p>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="badAdverbCheck">
-            <label class="form-check-label" for="badAdverbCheck">
-              Any -ly adverbs (Earnest Hemmingway said that these were bad. I'm not convinced, but I'm not going to argue with a master)
-            </label>
+    <div class="options">
+      <p>Select the common writing style issues you would like to look for:</p>
+      <div class="container">
+        <div class="row">
+          <div class="col-sm">
+            <p>Trouble words:</p>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="badAdverbCheck">
+              <label class="form-check-label" for="badAdverbCheck">
+                Any -ly adverbs (Earnest Hemmingway said that these were bad. I'm not convinced, but I'm not going to argue with a master)
+              </label>
+            </div>
+            <br>
+            <div id="miniapp" class="form-check">
+              <p>Enter any specific words you would like to watch out for. Words are not case sensitive, but please do not include spaces.</p>
+              <ul>
+                <li v-for="word in troubleWords">
+                  <input class="form-check-input" type="checkbox" v-model="word.selected" v-on:click="toggleWordselected(word)" />
+                  <label v-bind:class="{selected: word.selected}"> {{ word.text }}</label>
+                </li>
+              </ul>
+              <form v-on:submit.prevent="addWord">
+                <input type="text" v-model="nextWord">
+                <button id="addWordButton" type="submit">Add</button>
+            </div>
           </div>
-          <br>
-          <div id="app" class="form-check">
-            <p>Enter any specific words you would like to watch out for. Words are not case sensitive, but please do not include spaces.</p>
-            <ul>
-              <li v-for="word in troubleWords">
-                <input class="form-check-input" type="checkbox" v-model="word.selected" v-on:click="toggleWordselected(word)" />
-                <label v-bind:class="{selected: word.selected}"> {{ word.text }}</label>
-              </li>
-            </ul>
-            <form v-on:submit.prevent="addWord">
-              <input type="text" v-model="nextWord">
-              <button id="addWordButton" type="submit">Add</button>
-          </div>
-        </div>
-        <div class="col-sm">
-          <p>Sentence Structure:</p>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="sentenceLengthCheck">
-            <label class="form-check-label" for="sentenceLengthCheck">
-              Repeated sentence length
-            </label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="repeatWordCheck">
-            <label class="form-check-label" for="repeatWordCheck">
-              Repeated first word
-            </label>
+          <div class="col-sm">
+            <p>Sentence Structure:</p>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="sentenceLengthCheck">
+              <label class="form-check-label" for="sentenceLengthCheck">
+                Repeated sentence length
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="repeatWordCheck">
+              <label class="form-check-label" for="repeatWordCheck">
+                Repeated first word
+              </label>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div id="inputarea" class="inputarea">
-    <p id="inputHeading">Enter your story here:
-    <button type="button" class="btn btn-secondary btn-lg" id="startanalysis">Analyze!</button></p>
-    <textarea class="maininput" id="maintextarea"></textarea>
-  </div>
+    <div id="inputarea" class="inputarea">
+      <p id="inputHeading">Enter your story here:
+      <button v-on:click="appAnalyze" type="button" class="btn btn-secondary btn-lg" id="startanalysis">Analyze!</button></p>
+      <textarea class="maininput" id="maintextarea"></textarea>
+    </div>
 
-  <div id="goback">
-    <button type="button" class="btn btn-secondary btn-lg" id="reanalyze">Go back.</button>
+    <div id="goback">
+      <button v-on:click="appGoBack" type="button" class="btn btn-secondary btn-lg" id="reanalyze">Go back.</button>
+    </div>
+
+    <div id="outputarea">
+
+    </div>
   </div>
-
-  <div id="outputarea">
-
-  </div>
-
 
   <footer>
       <p>Code for this site at <a href="https://github.com/bandrus5/260CreativeProject3">https://github.com/bandrus5/260CreativeProject3</a></p>

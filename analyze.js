@@ -1,8 +1,8 @@
 function setdefaultoptions() {
-    var defaults = ["badAdverbCheck", "sentenceLengthCheck", "repeatWordCheck"];
-    for (var i = 0; i < defaults.length; i++) {
-      document.getElementById(defaults[i]).checked = true;
-    }
+    // var defaults = ["badAdverbCheck", "sentenceLengthCheck", "repeatWordCheck"];
+    // for (var i = 0; i < defaults.length; i++) {
+    //   document.getElementById(defaults[i]).checked = true;
+    // }
 }
 
 function parseWords(allWords) {
@@ -305,9 +305,8 @@ function analyze() {
     pasteText(sentences);
 }
 
-document.getElementById("startanalysis").addEventListener("click", analyze);
 
-document.getElementById("reanalyze").addEventListener("click", function() {
+function goBack() {
   document.getElementById("inputarea").style.display = "block";
   //document.getElementById("outputarea").style.display = "none";
   $("#outputarea").html("");
@@ -319,25 +318,30 @@ document.getElementById("reanalyze").addEventListener("click", function() {
   $(function(){
     $("button.demoButton").attr("disabled", false);
   });
-});
-
-document.getElementById("demoEragon").addEventListener("click", function() {
-  document.getElementById("maintextarea").value = eragonText;
-});
-
-document.getElementById("demoUncovered").addEventListener("click", function() {
-  document.getElementById("maintextarea").value = uncoveredText;
-});
-
+}
 
 
 var app = new Vue({
   el: '#app',
   data: {
+    title: 'The Style Helper',
+    blurb: 'A dream come true for authors and editors alike.',
     troubleWords: [],
     nextWord: '',
   },
   methods: {
+    addEragon: function() {
+      document.getElementById("maintextarea").value = eragonText;
+    },
+    addUncovered: function() {
+      document.getElementById("maintextarea").value = uncoveredText;
+    },
+    appAnalyze: function() {
+      analyze();
+    },
+    appGoBack: function() {
+      goBack();
+    },
     addWord: function() {
       if (this.nextWord.length === 0) {
         return;
@@ -354,7 +358,7 @@ var app = new Vue({
           findTroubleWord(words, this.troubleWords[i].text, 1);
         }
       }
-    }
+    },
   }
 })
 
